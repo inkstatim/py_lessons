@@ -7,4 +7,3 @@ def reverse_words(text):
     return ' '.join(words)
 
 
-print(reverse_words('double  spaced  words'))

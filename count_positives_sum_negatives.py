@@ -12,4 +12,4 @@ def count_positives_sum_negatives(arr: list):
         return []
 
 
-print(count_positives_sum_negatives([]))
+

@@ -6,9 +6,8 @@ The number will always be a positive integer greater than 0."""
 
 def summation(num):
     suma = 0
-    for i in range(1, num+1):
-        suma+=i
+    for i in range(1, num + 1):
+        suma += i
     return suma
-
 
 

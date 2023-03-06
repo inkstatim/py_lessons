@@ -1,7 +1,4 @@
-a = ' dfgdfgg'
-def problem(a):
-    try:
-        return a*50+6
-    except TypeError:
-        return "Error"
-print(problem("df"))
+a = ["bitcoin", "take", "over", "the", "world", "maybe", "who", "knows", "perhaps"]
+b= list(a[0])
+
+print(b)

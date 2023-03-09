@@ -22,15 +22,15 @@ CREATE TABLE orders(
 	customer_id int NOT NULL, 
 	order_date DATA NOT NULL, 
 	total_price decimal(10,2) NOT NULL ,
-	FOREIGN KEY customer_id REFERENCES customers(customer_id)
+	FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
 
 CREATE TABLE order_items (
   order_id int NOT NULL,
   product_id int NOT NULL,
-  FOREIGN KEY order_id REFERENCES orders(order_id),
-  FOREIGN KEY product_id REFERENCES products(products_id)
+  FOREIGN KEY (order_id) REFERENCES orders(order_id),
+  FOREIGN KEY (product_id) REFERENCES products(products_id)
   
 );
 

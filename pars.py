@@ -1,4 +1,4 @@
-import requests
+import requests as requests
 from bs4 import BeautifulSoup
 
 # Получаем HTML-код страницы

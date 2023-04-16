@@ -1,2 +1,5 @@
 .idea
 WebParsing/secrets.py
+WebParsing/draft.py
+WebParsing/req_get.py
+WebParsing/proxy.txt

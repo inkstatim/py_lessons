@@ -5,15 +5,8 @@ import requests
 from urllib.request import urlopen
 
 
-def get_video_description(link):
-    response = requests.get(link)
-    response.encoding = 'utf-8'
-    soup = BeautifulSoup(response.text, 'lxml')
-    div = soup.find('span', class_='tiktok-j2a19r-SpanText efbd9f0')
-    return div.text.strip()
-
-
-def get_download_video(link, video_name):
+def get_download_video(link, index):
+    print(f"Загружаем видео {index} : {link}")
     headers = {
         'authority': 'ssstik.io',
         'accept': '*/*',
@@ -45,11 +38,14 @@ def get_download_video(link, video_name):
     }
 
     response = requests.post('https://ssstik.io/abc', params=params, headers=headers, data=data)
-    downloadSoap = BeautifulSoup(response.text, "html.parser")
-    downloadLink = downloadSoap.a['href']
+    downloadSoup = BeautifulSoup(response.text, "html.parser")
+
+    downloadLink = downloadSoup.a["href"]
+    videoTitle = downloadSoup.p.getText().strip()
+
     mp4File = urlopen(downloadLink)
 
-    with open(f"media/{video_name}.mp4", "wb") as file:
+    with open(f"media/{videoTitle}.mp4", "wb") as file:
         while True:
             data = mp4File.read(4096)
             if data:
@@ -57,17 +53,19 @@ def get_download_video(link, video_name):
             else:
                 break
 
+
+print("Шаг 1: Вводим ник")
 nickname = input("TT nick: ")
 driver = webdriver.Chrome()
 driver.get(f"https://www.tiktok.com/@{nickname}")
 
-time.sleep(20)
+time.sleep(10)
 
 scroll_pause_time = 1
 screen_height = driver.execute_script("return window.screen.height;")
 i = 1
 
-print("Scrolling page")
+print("Шаг 2: Scrolling page")
 while True:
     driver.execute_script("window.scrollTo(0, {screen_height}*{i});".format(screen_height=screen_height, i=i))
     i += 1
@@ -79,11 +77,10 @@ while True:
 soup = BeautifulSoup(driver.page_source, "html.parser")
 videos = soup.find_all("div", {"class": "tiktok-yz6ijl-DivWrapper"})
 
-print(len(videos))
-
-for video in videos:
+print(f"Шаг 3: Скачать - {len(videos)} видео с аккаунта {nickname}")
+for index, video in enumerate(videos):
+    print(f"Скачивается видео: {index}")
     url = video.a["href"]
-    description = get_video_description(url)
-    video_name = description.replace(' ', '_')
-    get_download_video(url, video_name)
 
+    get_download_video(url, index)
+    time.sleep(10)

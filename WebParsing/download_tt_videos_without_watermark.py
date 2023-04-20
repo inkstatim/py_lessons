@@ -45,7 +45,7 @@ def get_download_video(link, index):
 
     mp4File = urlopen(downloadLink)
 
-    with open(f"media/{videoTitle}.mp4", "wb") as file:
+    with open(f"media/{ index if videoTitle =='' else videoTitle}.mp4", "wb") as file:
         while True:
             data = mp4File.read(4096)
             if data:
